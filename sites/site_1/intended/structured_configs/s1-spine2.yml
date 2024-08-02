@@ -21,7 +21,7 @@ local_users:
 - name: arista
   privilege: 15
   role: network-admin
-  sha512_password: $6$arista$V6KdUscgO.3O0b5.JjLlrcuAWmnU01q4zN8AWOyzDZZfOUry.8sDatzrrC.98RJH5DhweLl2RgL9n2S8oXgsk0
+  sha512_password: $6$arista$RArU/OEQzi81GpjRc8tQz6nDYbOoQGCq02vnj4AeNZrW6wSGSN6dyDw1/DzCDi5HvsTWHXFmASMPSy7iJED.T/
   ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCymdr3ZdyPlQfgy2V84zdq6+qkm/8sANPQqYWcr7HFWlpMEV8zoUgxlS/uOL5Fa9WFGOtE5ZN1nx0lmOfZM7bW7zkUQbLkcUpP9VGgmO9LVAnYCYh64GCO/MOmSo7ALgFs0cTnsggjBlSQAAhK/cDqrOWC1AEJfo6fa85mg1/922hjxnmW/v3Boaa0D2dRBhH4eSvn+YZI3JiFVLtKWsj5wYlj7l3KuPJITV81+bcktEpF83vMJoZ3QDtNL+NoPr0LXA/J9yhmON3059N5mAFTgwQABP0AKM1Di7WAdsVJCk91XntrG0L4jDCQMg7tzcSUeWREm0/Yg1dUkCr/wbI5
 vrfs:
 - name: default
@@ -110,6 +110,13 @@ port_channel_interfaces:
   mode: trunk
   vlans: '20'
   mlag: 4
+- name: Port-Channel9
+  description: RACK3_Po2
+  type: switched
+  shutdown: false
+  mode: trunk
+  vlans: 10,20
+  mlag: 9
 ethernet_interfaces:
 - name: Ethernet1
   peer: s1-spine1
@@ -170,6 +177,26 @@ ethernet_interfaces:
   type: port-channel-member
   channel_group:
     id: 4
+    mode: active
+- name: Ethernet9
+  peer: s1-leaf5
+  peer_interface: Ethernet3
+  peer_type: leaf
+  description: S1-LEAF5_Ethernet3
+  shutdown: false
+  type: port-channel-member
+  channel_group:
+    id: 9
+    mode: active
+- name: Ethernet10
+  peer: s1-leaf6
+  peer_interface: Ethernet3
+  peer_type: leaf
+  description: S1-LEAF6_Ethernet3
+  shutdown: false
+  type: port-channel-member
+  channel_group:
+    id: 9
     mode: active
 - name: Ethernet7
   peer: WANCORE
